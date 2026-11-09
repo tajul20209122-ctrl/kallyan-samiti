@@ -174,6 +174,85 @@ tbody tr:hover{background:#eff6ff}
  body.print-expense-report .expense-signatures b{font-size:10pt;display:block}
  body.print-expense-report .expense-signatures small{font-size:8pt}
 }
+
+
+/* ===== FINAL COLOR THEME: MOBILE + DESKTOP ===== */
+:root{
+  --ks-green:#087f5b;
+  --ks-blue:#2563eb;
+  --ks-orange:#ea580c;
+  --ks-purple:#7c3aed;
+  --ks-ink:#17324d;
+}
+html,body{
+  background:linear-gradient(135deg,#eef7ff 0%,#f0fff4 48%,#fff7ed 100%) !important;
+  color:var(--ks-ink) !important;
+}
+nav.no-print{
+  display:grid !important;
+  grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+  gap:10px !important;
+  align-items:stretch;
+}
+nav.no-print > button{
+  background:linear-gradient(120deg,#087f5b,#2563eb) !important;
+  color:#fff !important;
+  border:0 !important;
+  border-radius:12px !important;
+  min-height:58px;
+  font-weight:700;
+  box-shadow:0 4px 12px #1d4ed822 !important;
+}
+nav.no-print > button:nth-child(3n+2){
+  background:linear-gradient(120deg,#7c3aed,#2563eb) !important;
+}
+nav.no-print > button:nth-child(3n){
+  background:linear-gradient(120deg,#ea580c,#d97706) !important;
+}
+nav.no-print > button:hover{filter:brightness(1.07)}
+.card{
+  background:#fff !important;
+  border:1px solid #dbeafe !important;
+  border-radius:16px !important;
+  box-shadow:0 5px 18px #1e3a8a12 !important;
+}
+.summary{
+  display:grid !important;
+  grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  gap:12px !important;
+}
+.summary > div{
+  background:linear-gradient(135deg,#dbeafe,#dcfce7) !important;
+  border:1px solid #bfdbfe !important;
+  border-radius:14px !important;
+  color:#123b58 !important;
+  padding:18px !important;
+}
+.summary > div:nth-child(2){
+  background:linear-gradient(135deg,#fef3c7,#ffedd5) !important;
+}
+.summary > div:nth-child(3){
+  background:linear-gradient(135deg,#ede9fe,#dbeafe) !important;
+}
+.summary > div:nth-child(4){
+  background:linear-gradient(135deg,#fce7f3,#f3e8ff) !important;
+}
+input,select,textarea{
+  border:1px solid #b8c9dc !important;
+  background:#fff !important;
+}
+th{background:linear-gradient(120deg,#dbeafe,#dcfce7) !important;color:#123b58 !important}
+tbody tr:nth-child(even){background:#f8fbff}
+tbody tr:hover{background:#eff6ff}
+@media(max-width:700px){
+  nav.no-print{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
+  nav.no-print > button{min-height:58px}
+  .summary{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
+}
+@media print{
+  nav.no-print{display:none !important}
+}
+
 </style>
 
 <link rel="manifest" href="./manifest.webmanifest">
