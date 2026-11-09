@@ -80,7 +80,7 @@ body.viewer-mode .admin-only{display:none!important}
 
 /* ===== A4 সুন্দর প্রিন্ট সেটআপ ===== */
 @page {
-  size: A4 portrait;
+  size: A4 landscape;
   margin: 12mm;
 }
 @media print {
@@ -113,14 +113,67 @@ body.viewer-mode .admin-only{display:none!important}
   .grid, .summary { gap: 3mm !important; }
   .brand-banner { max-height: 35mm !important; width: 100% !important; object-fit: contain !important; }
   img { max-width: 100% !important; }
-  /* খরচের রিপোর্টে শুধু তালিকা, মোট খরচ ও স্বাক্ষর প্রিন্ট হবে */
-  #expenses > .card:first-child { display: none !important; }
-  #expenseForm, #expenses > .card:first-child { display: none !important; }
-  #expenses .card { break-inside: auto !important; }
-  #expenses table { font-size: 9pt !important; }
   a { color: #111 !important; text-decoration: none !important; }
 }
 
+
+/* রঙিন আধুনিক ডিজাইন */
+:root{--green:#087f5b;--blue:#2563eb;--orange:#f59e0b;--purple:#7c3aed;--ink:#17324d}
+body{background:linear-gradient(135deg,#eef7ff 0%,#f0fff4 48%,#fff7ed 100%);color:var(--ink)}
+header:not(.brand-header){background:linear-gradient(115deg,#075985,#087f5b 55%,#4f46e5);color:#fff;box-shadow:0 5px 18px #0f766e22}
+nav button{background:linear-gradient(120deg,#087f5b,#2563eb);box-shadow:0 2px 7px #1d4ed822;font-weight:600}
+nav button:nth-child(3n+2){background:linear-gradient(120deg,#7c3aed,#2563eb)}
+nav button:nth-child(3n){background:linear-gradient(120deg,#ea580c,#d97706)}
+button{transition:transform .15s ease,filter .15s ease;box-shadow:0 2px 6px #00000012}
+button:hover{filter:brightness(1.06);transform:translateY(-1px)}
+.card{border:1px solid #dbeafe;border-radius:14px;box-shadow:0 5px 18px #1e3a8a12}
+.summary div{background:linear-gradient(135deg,#dbeafe,#dcfce7);border:1px solid #bfdbfe;color:#123b58}
+.summary div:nth-child(2){background:linear-gradient(135deg,#fef3c7,#ffedd5)}
+.summary div:nth-child(3){background:linear-gradient(135deg,#ede9fe,#dbeafe)}
+.summary div:nth-child(4){background:linear-gradient(135deg,#fce7f3,#f3e8ff)}
+input,select,textarea{border:1px solid #b8c9dc!important;background:#fff}
+input:focus,select:focus,textarea:focus{outline:2px solid #60a5fa;outline-offset:1px}
+th{background:linear-gradient(120deg,#dbeafe,#dcfce7);color:#123b58}
+tbody tr:nth-child(even){background:#f8fbff}
+tbody tr:hover{background:#eff6ff}
+#loginGate{background:linear-gradient(135deg,#dbeafe,#dcfce7,#ffedd5)}
+#loginGate .login-box{border:1px solid #bfdbfe;box-shadow:0 15px 40px #1e3a8a24}
+@media(max-width:700px){main{padding:8px}.card{padding:12px}.summary{grid-template-columns:repeat(2,minmax(0,1fr))}nav button{flex:1 1 42%}}
+/* ব্যবহারকারীর নির্দেশে ভুল করে ডেটা মুছে যাওয়ার ঝুঁকি কমাতে Delete বোতামগুলো নিষ্ক্রিয় */
+
+
+
+/* ব্যয় বিবরণী: ব্যবহারকারীর নমুনা অনুযায়ী A4 প্রিন্ট */
+/* ব্যয় বিবরণী: নমুনা কাগজের মতো A4 portrait print */
+.expense-print-report{display:none}
+@page{size:A4 portrait;margin:14mm 13mm}
+@media print{
+ body.print-expense-report nav,
+ body.print-expense-report header,
+ body.print-expense-report main>section:not(#expenses),
+ body.print-expense-report #expenses> .card:first-child,
+ body.print-expense-report #expenses .no-print{display:none!important}
+ body.print-expense-report #expenses,
+ body.print-expense-report #expenses.page,
+ body.print-expense-report #expenses.page.active{display:block!important;width:100%!important;margin:0!important;padding:0!important}
+ body.print-expense-report #expenses .card{display:block!important;border:0!important;padding:0!important;margin:0!important;box-shadow:none!important}
+ body.print-expense-report .expense-print-report{display:block!important;font-family:'Noto Sans Bengali',Arial,sans-serif!important;color:#111!important}
+ body.print-expense-report .expense-print-top{text-align:center;margin-bottom:5mm}
+ body.print-expense-report .expense-print-contact{font-size:10pt;line-height:1.5}
+ body.print-expense-report .expense-print-top h2{font-size:16pt!important;font-weight:700;margin:2mm 0!important;text-align:center}
+ body.print-expense-report .expense-print-date{text-align:right;font-size:9pt}
+ body.print-expense-report .expense-print-table{width:100%!important;min-width:0!important;border-collapse:collapse!important;font-size:10pt}
+ body.print-expense-report .expense-print-table th,
+ body.print-expense-report .expense-print-table td{border:1px solid #333!important;padding:5px 4px!important;text-align:center;vertical-align:middle}
+ body.print-expense-report .expense-print-table th{background:#fff!important;font-weight:700}
+ body.print-expense-report .expense-print-table td:nth-child(3){text-align:left}
+ body.print-expense-report .expense-print-inwords{font-size:10pt;margin-top:3mm;min-height:8mm}
+ body.print-expense-report .expense-signatures{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:6mm;margin-top:48mm;text-align:center;break-inside:avoid;page-break-inside:avoid;width:100%;box-sizing:border-box}
+ body.print-expense-report .expense-signatures>div{display:flex;flex-direction:column;align-items:center;font-size:9pt;line-height:1.5}
+ body.print-expense-report .expense-signatures span{display:block;width:80%;height:1px;border-top:1px solid #222;margin-bottom:2mm;min-height:1px}
+ body.print-expense-report .expense-signatures b{font-size:10pt;display:block}
+ body.print-expense-report .expense-signatures small{font-size:8pt}
+}
 </style>
 
 <link rel="manifest" href="./manifest.webmanifest">
@@ -142,6 +195,7 @@ body.viewer-mode .admin-only{display:none!important}
   <button type="button" onclick="loginAdmin()">এডমিন লগইন</button>
   <button type="button" style="background:#52665a" onclick="enterViewerMode()">শুধু দেখুন</button>
   <p class="small">Admin1-এর পাসওয়ার্ড লিখুন।</p>
+  <p class="small" style="color:#9a3412">মোবাইল OTP চালু করতে SMS গেটওয়ে সংযোগ প্রয়োজন; সংযোগ না হওয়া পর্যন্ত বর্তমান লগইন চালু থাকবে।</p>
   <p id="loginError" style="color:#b42318"></p>
  </div>
 </div>
@@ -198,6 +252,8 @@ body.viewer-mode .admin-only{display:none!important}
   <div class="grid">
    <div>সদস্য নং<input id="editNo" required></div>
    <div>সদস্যের নাম<input id="editName" required></div>
+   <div>পিতার নাম<input id="editFatherName"></div>
+   <div>স্থায়ী ঠিকানা<input id="editPermanentAddress"></div>
    <div>বাসা/প্লট<input id="editPlot" required></div>
    <div>বকেয়া টাকা<input id="editArrears" type="number" min="0" required></div>
    <div>বর্তমান বছরের টাকা<input id="editYear" type="number" min="0" required></div>
@@ -222,6 +278,14 @@ body.viewer-mode .admin-only{display:none!important}
 
 <div>সদস্যের নাম
 <input id="name" required>
+</div>
+
+<div>পিতার নাম
+<input id="fatherName">
+</div>
+
+<div>স্থায়ী ঠিকানা
+<input id="permanentAddress">
 </div>
 
 <div>বাসা/প্লট
@@ -263,9 +327,12 @@ oninput="render()">
 <table>
 <thead>
 <tr>
+<th class="no-print">সিলেক্ট</th>
 <th>সিরিয়াল নং</th>
 <th>সদস্য নং</th>
 <th>নাম</th>
+<th>পিতার নাম</th>
+<th>স্থায়ী ঠিকানা</th>
 <th>বাসা/প্লট</th>
 <th>বকেয়া</th>
 <th>বর্তমান বছরের টাকা</th>
@@ -286,9 +353,12 @@ oninput="render()">
 </table>
 </div>
 <br>
-<button onclick="window.print()">PDF ডাউনলোড / তালিকা প্রিন্ট</button>
+<button class="no-print" onclick="printSelectedMembers()">নির্বাচিত সদস্য প্রিন্ট</button>
+<button class="no-print" onclick="selectAllVisibleMembers(true)">সব সিলেক্ট</button>
+<button class="no-print" onclick="selectAllVisibleMembers(false)">সিলেক্ট বাতিল</button>
+<button class="no-print" onclick="window.print()">সব তালিকা প্রিন্ট</button>
 <button onclick="openSourceRoster()">PDF-এর মূল সদস্য তালিকা দেখুন</button>
-<button class="no-print admin-only" style="background:#b42318;color:white;margin-top:8px" onclick="deleteAllMembers()">সম্পূর্ণ সদস্য তালিকা মুছুন</button>
+<p class="small no-print" style="color:#9a3412;font-weight:600">নিরাপত্তার জন্য সম্পূর্ণ সদস্য তালিকা মুছার বোতাম বন্ধ রাখা হয়েছে।</p>
 <p class="small no-print">সদস্য মুছলে তাঁর জমার রেকর্ডও মুছবে। মুছার আগে ব্যাকআপ ফাইল ডাউনলোড হবে।</p>
 </div>
 </section>
@@ -311,7 +381,8 @@ oninput="render()">
 <input type="hidden" id="selectedId">
 
 <label>রসিদ নম্বর</label>
-<input id="receipt" required placeholder="রসিদ নং লিখুন">
+<input id="receipt" required placeholder="যেমন: ১০১, ১০২, ১০৩">
+<p class="small">একাধিক রসিদ নম্বর হলে কমা (,) দিয়ে লিখুন।</p>
 
 <label>জমার টাকা</label>
 <input id="amount" type="number" min="1" required placeholder="টাকা লিখুন">
@@ -366,8 +437,27 @@ oninput="renderHistory()">
 <div>পরিমাণ<input id="expenseQty" type="number" min="0.01" step="0.01" value="1" required></div>
 <div>মোট দাম<input id="expenseTotal" type="number" readonly></div>
 </div><button type="submit">খরচ সংরক্ষণ</button></form></div>
-<div class="card"><h3>খরচের তালিকা</h3><div class="summary"><div>মোট খরচ<br><b id="expenseGrandTotal">৳০</b></div></div>
-<div class="tablewrap"><table style="min-width:700px"><thead><tr><th>সিরিয়াল</th><th>তারিখ</th><th>মালপত্রের নাম</th><th>ভাউচার নং</th><th>একক মূল্য</th><th>পরিমাণ</th><th>দাম</th><th class="no-print admin-only">অ্যাকশন</th></tr></thead><tbody id="expenseRows"></tbody></table></div><br><button onclick="window.print()">খরচের তালিকা প্রিন্ট</button></div>
+<div class="card"><h3 class="no-print">খরচের তালিকা</h3><div class="summary no-print"><div>মোট খরচ<br><b id="expenseGrandTotal">৳০</b></div></div>
+<div class="tablewrap no-print"><table style="min-width:700px"><thead><tr><th>সিরিয়াল</th><th>তারিখ</th><th>মালপত্রের নাম</th><th>ভাউচার নং</th><th>একক মূল্য</th><th>পরিমাণ</th><th>দাম</th><th class="no-print admin-only">অ্যাকশন</th></tr></thead><tbody id="expenseRows"></tbody></table></div>
+<div id="expensePrintReport" class="expense-print-report">
+ <div class="expense-print-top">
+  <div class="expense-print-contact">আলমগীর হোসেন সিটি কল্যাণ সমিতি<br>ঘাইটাল, কিশোরগঞ্জ</div>
+  <h2>“ব্যয় বিবরণী”</h2>
+  <div class="expense-print-date" id="expensePrintDate"></div>
+ </div>
+ <table class="expense-print-table">
+  <thead><tr><th>ক্রমিক<br>নং</th><th>তারিখ</th><th>বিবরণ</th><th>ভাউচার<br>নং</th><th>টাকা</th><th>মন্তব্য</th></tr></thead>
+  <tbody id="expensePrintRows"></tbody>
+  <tfoot><tr><th colspan="4">মোট ব্যয়</th><th id="expensePrintTotal">৳০</th><th></th></tr></tfoot>
+ </table>
+ <div class="expense-print-inwords" id="expensePrintWords"></div>
+ <div class="expense-signatures">
+  <div><span></span><b>অর্থ সম্পাদক</b><small>আলমগীর হোসেন সিটি কল্যাণ সমিতি</small><small>ঘাইটাল, কিশোরগঞ্জ</small></div>
+  <div><span></span><b>সাধারণ সম্পাদক</b><small>আলমগীর হোসেন সিটি কল্যাণ সমিতি</small><small>ঘাইটাল, কিশোরগঞ্জ</small></div>
+  <div><span></span><b>সভাপতি</b><small>আলমগীর হোসেন সিটি কল্যাণ সমিতি</small><small>ঘাইটাল, কিশোরগঞ্জ</small></div>
+ </div>
+</div>
+<br><button class="no-print" onclick="printExpenseReport()">ব্যয় বিবরণী প্রিন্ট</button></div>
 </section>
 
 <!-- BACKUP -->
@@ -398,7 +488,7 @@ oninput="renderHistory()">
 
 // SUPABASE CLOUD DATABASE
 const SUPABASE_URL = 'https://hyvoxuddbmykdyuwbnav.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh5dm94dWRkYm15a2R5dXdibmF2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQwMzc5NDksImV4cCI6MjEwOTYxMzk0OX0.6IW5n40k66YqQdHz_-dlg4Fy58Pd0EeS5xEkHoTJ9AQ';
+const SUPABASE_ANON_KEY = 'sb_publishable_2d-jJn6IjdG1GAJp1PtQtQ_aZTKGj0I';
 let supabaseClient = null;
 try {
   if (window.supabase && window.supabase.createClient) {
@@ -514,11 +604,10 @@ async function loginAdmin(){
      await supabaseClient.auth.signOut();
      throw new Error('এই ইমেইলটি Admin অনুমোদিত নয়। Supabase-এ Admin role সেট করুন।');
    }
-   const {data:remote,error:readError}=await supabaseClient.from('kallyan_data').select('data,updated_at').eq('id','main').maybeSingle();
+   const {data:remote,error:readError}=await supabaseClient.from('kallyan_data').select('data').eq('id','main').maybeSingle();
    if(readError) throw readError;
    if(remote && remote.data && Array.isArray(remote.data.members) && Array.isArray(remote.data.deposits)){
      db=remote.data;
-     lastCloudUpdatedAt=remote.updated_at||null;
      if(!Array.isArray(db.expenses)) db.expenses=[];
      localStorage.setItem(KEY,JSON.stringify(db));
    } else {
@@ -538,45 +627,14 @@ function setCloudStatus(message){
  if(!el){el=document.createElement('span');el.id='cloudSyncStatus';el.style.cssText='font-size:13px;font-weight:600;margin-left:auto';$('sessionBar')?.appendChild(el);}
  el.textContent=message;
 }
-let lastCloudUpdatedAt = null;
-let cloudPollBusy = false;
 async function syncToSupabase(){
- if(!isAdmin() || !supabaseClient) return false;
- try {
-  const {data:{user},error:sessionError}=await supabaseClient.auth.getUser();
-  if(sessionError || !user) {setCloudStatus('Supabase লগইন নেই');return false;}
-  const updatedAt=new Date().toISOString();
-  const {error}=await supabaseClient.from('kallyan_data').upsert({id:'main',data:db,updated_by:user.id,updated_at:updatedAt});
-  if(error) throw error;
-  lastCloudUpdatedAt=updatedAt;
-  setCloudStatus('অনলাইনে সেভ হয়েছে ✓');
-  return true;
- } catch(error) {
-  console.error(error); setCloudStatus('অনলাইন সেভ হয়নি');
-  alert('লোকাল সেভ হয়েছে, কিন্তু অনলাইনে সেভ হয়নি: '+(error.message||error));
-  return false;
- }
+ if(!isAdmin() || !supabaseClient) return;
+ const {data:{user},error:sessionError}=await supabaseClient.auth.getUser();
+ if(sessionError || !user) {setCloudStatus('Supabase লগইন নেই');return;}
+ const {error}=await supabaseClient.from('kallyan_data').upsert({id:'main',data:db,updated_by:user.id,updated_at:new Date().toISOString()});
+ if(error){console.error(error);setCloudStatus('অনলাইন সেভ হয়নি');alert('লোকাল সেভ হয়েছে, কিন্তু Supabase-এ সেভ হয়নি: '+error.message);}
+ else setCloudStatus('অনলাইনে সেভ হয়েছে ✓');
 }
-async function refreshFromSupabase(showMessage=false){
- if(!isAdmin() || !supabaseClient || cloudPollBusy) return;
- // ব্যবহারকারী কোনো ঘরে লিখলে সেই সময় অন্য ডিভাইসের ডেটা দিয়ে ফর্ম/হিসাব বদলাবেনা।
- const active=document.activeElement;
- if(active && /^(INPUT|TEXTAREA|SELECT)$/.test(active.tagName)) return;
- cloudPollBusy=true;
- try {
-  const {data,error}=await supabaseClient.from('kallyan_data').select('data,updated_at').eq('id','main').maybeSingle();
-  if(error) throw error;
-  if(data && data.data && data.updated_at && data.updated_at!==lastCloudUpdatedAt &&
-     Array.isArray(data.data.members) && Array.isArray(data.data.deposits)) {
-    db=data.data; if(!Array.isArray(db.expenses)) db.expenses=[];
-    localStorage.setItem(KEY,JSON.stringify(db)); lastCloudUpdatedAt=data.updated_at; render();
-    setCloudStatus('অন্য ডিভাইসের আপডেট পাওয়া গেছে ✓');
-  } else if(showMessage) setCloudStatus('সর্বশেষ তথ্য দেখাচ্ছে ✓');
- } catch(error) { console.error(error); if(showMessage) setCloudStatus('ক্লাউড থেকে তথ্য আসেনি'); }
- finally { cloudPollBusy=false; }
-}
-// একই Admin অ্যাকাউন্টে লগইন থাকা ডিভাইসগুলো ১৫ সেকেন্ড পরপর নতুন তথ্য দেখবে।
-setInterval(()=>refreshFromSupabase(false),15000);
 
 function enterViewerMode(){applyLogin('Viewer');}
 function logoutUser(){
@@ -640,10 +698,14 @@ function remaining(m){
 
 // LAST RECEIPT
 function lastReceipt(id){
- let a=db.deposits.filter(
- d=>String(d.memberId)===String(id)
- );
- return a.length?a[a.length-1].receipt:'';
+ const a=db.deposits.filter(d=>String(d.memberId)===String(id));
+ const numbers=[];
+ for(const d of a){
+  for(const n of String(d.receipt||'').split(/[,،]/).map(x=>x.trim()).filter(Boolean)){
+   if(!numbers.includes(n)) numbers.push(n);
+  }
+ }
+ return numbers.join(', ');
 }
 
 // SAVE DATA
@@ -690,6 +752,8 @@ $('memberForm').onsubmit=function(e){
  id:Date.now(),
  no:no,
  name:$('name').value.trim(),
+ fatherName:$('fatherName').value.trim(),
+ permanentAddress:$('permanentAddress').value.trim(),
  plot:plot,
  arrears:Number($('arrears').value),
  year:Number($('year').value),
@@ -780,10 +844,12 @@ $('depositForm').onsubmit=function(e){
  return;
  }
 
- if(db.deposits.some(d=>String(d.receipt||'').trim().toLowerCase()===receipt.toLowerCase())){
- alert('এই রসিদ নম্বর আগে ব্যবহার হয়েছে');
- return;
- }
+ const enteredReceipts=receipt.split(/[,،]/).map(x=>x.trim()).filter(Boolean);
+ if(!enteredReceipts.length){alert('রসিদ নম্বর লিখুন');return;}
+ const usedReceipts=new Set(db.deposits.flatMap(d=>String(d.receipt||'').split(/[,،]/).map(x=>x.trim().toLowerCase()).filter(Boolean)));
+ const duplicate=enteredReceipts.find(x=>usedReceipts.has(x.toLowerCase()));
+ if(duplicate){alert('রসিদ নম্বর '+duplicate+' আগে ব্যবহার হয়েছে');return;}
+ receipt=enteredReceipts.join(', ');
 
  if(remaining(m)<0 || amount>remaining(m)){
  alert('জমার টাকা অবশিষ্ট টাকার বেশি');
@@ -832,6 +898,8 @@ function editMember(id){
  $('editId').value=m.id;
  $('editNo').value=m.no||'';
  $('editName').value=m.name||'';
+ $('editFatherName').value=m.fatherName||'';
+ $('editPermanentAddress').value=m.permanentAddress||'';
  $('editPlot').value=m.plot||'';
  $('editArrears').value=Number(m.arrears)||0;
  $('editYear').value=Number(m.year)||0;
@@ -857,6 +925,8 @@ $('editMemberForm').onsubmit=function(e){
  backup();
  m.no=no;
  m.name=$('editName').value.trim();
+ m.fatherName=$('editFatherName').value.trim();
+ m.permanentAddress=$('editPermanentAddress').value.trim();
  m.plot=$('editPlot').value.trim();
  m.arrears=Math.max(0,Number($('editArrears').value)||0);
  m.year=Math.max(0,Number($('editYear').value)||0);
@@ -897,6 +967,27 @@ function deleteAllMembers(){
  alert('সম্পূর্ণ সদস্য তালিকা ও জমার রেকর্ড মুছে ফেলা হয়েছে। খরচের হিসাব রাখা হয়েছে। ব্যাকআপ ফাইলটি নিরাপদে রাখুন।');
 }
 
+// নির্বাচিত সদস্যদের শুধু প্রিন্ট
+function selectAllVisibleMembers(checked){
+ document.querySelectorAll('#memberRows .member-print-check').forEach(el=>el.checked=checked);
+}
+function printSelectedMembers(){
+ const selected=[...document.querySelectorAll('#memberRows .member-print-check:checked')];
+ if(!selected.length){alert('প্রিন্ট করার জন্য আগে সদস্য সিলেক্ট করুন।');return;}
+ document.querySelectorAll('#memberRows tr').forEach(row=>{
+  const cb=row.querySelector('.member-print-check');
+  row.classList.toggle('print-selected',!!cb&&cb.checked);
+ });
+ document.body.classList.add('print-selected-only');
+ const done=()=>{
+  document.body.classList.remove('print-selected-only');
+  document.querySelectorAll('#memberRows tr').forEach(row=>row.classList.remove('print-selected'));
+  window.removeEventListener('afterprint',done);
+ };
+ window.addEventListener('afterprint',done);
+ window.print();
+}
+
 // RENDER MAIN LIST
 function render(){
 
@@ -905,14 +996,19 @@ function render(){
  let rows=db.members.filter(m=>
  normalizeSearch(m.no).includes(q)||
  normalizeSearch(m.name).includes(q)||
+ normalizeSearch(m.fatherName).includes(q)||
+ normalizeSearch(m.permanentAddress||m.address).includes(q)||
  normalizeSearch(m.plot).includes(q)
  );
 
  $('memberRows').innerHTML=rows.map((m,i)=>`
- <tr>
+ <tr data-member-row="${safe(m.id)}">
+ <td class="no-print"><input type="checkbox" class="member-print-check" data-id="${safe(m.id)}" aria-label="সদস্য সিলেক্ট" style="width:auto;margin:0"></td>
  <td>${i+1}</td>
  <td>${safe(m.no)}</td>
  <td>${safe(m.name)}</td>
+ <td>${safe(m.fatherName||'')}</td>
+ <td>${safe(m.permanentAddress||m.address||'')}</td>
  <td>${safe(m.plot)}</td>
  <td>${money(m.arrears)}</td>
  <td>${money(m.year)}</td>
@@ -979,9 +1075,25 @@ function renderExpenses(){
  const rows=[...db.expenses].sort((a,b)=>String(b.date).localeCompare(String(a.date)));
  $('expenseRows').innerHTML=rows.map((e,i)=>{
   const encodedId=encodeURIComponent(String(e.id));
-  return `<tr><td>${i+1}</td><td>${safe(e.date)}</td><td>${safe(e.name)}</td><td>${safe(e.voucher||'')}</td><td>${money(e.price)}</td><td>${safe(e.qty)}</td><td>${money(e.total)}</td><td class="no-print admin-only"><button type="button" style="background:#b42318;color:white" onclick="deleteExpense(decodeURIComponent('${encodedId}'))">মুছুন</button></td></tr>`;
+  return `<tr><td>${i+1}</td><td>${safe(e.date)}</td><td>${safe(e.name)}</td><td>${safe(e.voucher||'')}</td><td>${money(e.price)}</td><td>${safe(e.qty)}</td><td>${money(e.total)}</td><td class="no-print admin-only"><button type="button" disabled title="ডেটা সুরক্ষার জন্য মুছুন বন্ধ">মুছুন বন্ধ</button></td></tr>`;
  }).join('');
- $('expenseGrandTotal').textContent=money(rows.reduce((sum,e)=>sum+Number(e.total||0),0));
+ const grandTotal=rows.reduce((sum,e)=>sum+Number(e.total||0),0);
+ $('expenseGrandTotal').textContent=money(grandTotal);
+ const printRows=$('expensePrintRows');
+ if(printRows){
+  printRows.innerHTML=rows.map((e,i)=>`<tr><td>${i+1}</td><td>${safe(e.date||'')}</td><td>${safe(e.name||'')}${Number(e.qty||1)!==1?' ('+safe(e.qty)+' × '+money(e.price)+')':''}</td><td>${safe(e.voucher||'')}</td><td>${money(e.total)}</td><td></td></tr>`).join('');
+  $('expensePrintTotal').textContent=money(grandTotal);
+  $('expensePrintDate').textContent='প্রিন্টের তারিখ: '+new Date().toLocaleDateString('bn-BD');
+  $('expensePrintWords').textContent='কথায়: মোট ব্যয় '+money(grandTotal)+' টাকা মাত্র।';
+ }
+}
+function printExpenseReport(){
+ renderExpenses();
+ document.body.classList.add('print-expense-report');
+ const cleanup=()=>document.body.classList.remove('print-expense-report');
+ window.addEventListener('afterprint',cleanup,{once:true});
+ window.print();
+ setTimeout(cleanup,1500);
 }
 
 // DEPOSIT HISTORY
@@ -1243,5 +1355,3 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', () => naviga
 </script>
 </body>
 </html>
-
-
